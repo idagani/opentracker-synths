@@ -1,0 +1,19 @@
+# OpenTracker module manifest (core: docs/PLAN_3X.md §7.2, tools/profile.py).
+id      = "WTF1"
+name    = "WTFM synth"
+version = "1.0.0"
+api     = 1                         # core module API major (modules/module.h kModuleApi)
+entry   = "wtfmModule"              # ot::mod::IModule& ot::mod::wtfmModule()
+caps    = ["synthEngine"]
+sources = ["wtfm.cpp", "wtfm_desc.cpp", "wtfm_module.cpp"]   # in src/; basenames unique across a profile
+tests   = ["engine_wtfm_test.cpp"]          # in tests/; built and run by the core's host-test
+
+# Declared budgets, checked by tools/profile.py (flash after the link, per object).
+flash_max_bytes   = 22300
+sram_audio_bytes  = 0
+sdram_bytes       = 0
+fastrun_bytes     = 0
+cpu_insn_per_unit = 32000           # bench-m4 limit per unit (Oversampling On)
+max_units         = 8
+bench             = "wtfm"
+engines           = [5]              # Tracker Mini engine id served (unique in a profile)

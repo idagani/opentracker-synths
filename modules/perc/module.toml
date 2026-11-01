@@ -1,0 +1,19 @@
+# OpenTracker module manifest (core: docs/PLAN_3X.md §7.2, tools/profile.py).
+id      = "PRC1"
+name    = "PERC synth"
+version = "1.0.0"
+api     = 1                         # core module API major (modules/module.h kModuleApi)
+entry   = "percModule"                   # ot::mod::IModule& ot::mod::percModule()
+caps    = ["synthEngine"]
+sources = ["perc.cpp", "perc_desc.cpp", "perc_module.cpp"]   # in src/; basenames unique across a profile
+tests   = ["engine_perc_test.cpp"]        # in tests/; built and run by the core's host-test
+
+# Declared budgets, checked by tools/profile.py (flash after the link, per object).
+flash_max_bytes   = 28500
+sram_audio_bytes  = 0
+sdram_bytes       = 0
+fastrun_bytes     = 896
+cpu_insn_per_unit = 30000              # bench-m4 limit per unit
+max_units         = 3
+bench             = "perc"
+engines           = [6]              # Tracker Mini engine id served (unique in a profile)
