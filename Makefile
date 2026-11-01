@@ -1,5 +1,5 @@
 # Convenience targets: build and test these modules with the OpenTracker core.
-CORE ?= ../opentracker/reimpl
+CORE ?= ../ReversedPolytracker-3x/reimpl
 PROFILE ?= full
 
 image:

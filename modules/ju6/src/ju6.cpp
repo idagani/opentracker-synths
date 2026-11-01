@@ -1,4 +1,4 @@
-// JU6 early-1980s style poly engine (see ju6.h).
+// JU6 Juno-style poly engine (see ju6.h).
 //
 // Per sample: the DCO phase advances; the saw, the pulse (both edges) and the
 // sub square (it flips at every DCO wrap) get a polyBLEP correction near
@@ -12,7 +12,7 @@
 // slot (as on the instrument); the Delay fades it in per voice from its note
 // on. PWM in LFO mode follows the LFO without the delay.
 // The chorus runs once per slot on the voices' sum (slotPost): the shared BBD
-// chorus at its classic fixed settings (Mix 100, Width 100, Tone ~8.5 kHz),
+// chorus at the Juno's fixed settings (Mix 100, Width 100, Tone ~8.5 kHz),
 // each slot with its own line; Off leaves the bus untouched.
 #include "ju6.h"
 

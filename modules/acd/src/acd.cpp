@@ -1,4 +1,4 @@
-// ACD synth engine (see acd.h).
+// ACD synth engine (see acd.h) [OT clean-room DSP].
 //
 // Signal path per voice and block (all passes over one 128-frame buffer):
 //   1. control (block rate): Amp / Mod envelopes, LFO, glide, then the

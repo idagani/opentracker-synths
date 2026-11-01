@@ -1,4 +1,4 @@
-// JU6 early-1980s style poly engine (opentracker-synths modules/ju6, engine 0x81):
+// JU6 Juno-style poly engine (opentracker-synths modules/ju6, engine 0x81):
 // registered with a valid descriptor, silent when idle, the DCO at A 440,
 // polyBLEP aliasing below a naive saw, the HPF positions in order, the LPF
 // cutoff and resonance (self-oscillation at the top), the ADSR stages and the
