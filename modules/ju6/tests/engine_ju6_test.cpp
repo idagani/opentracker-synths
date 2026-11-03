@@ -876,7 +876,8 @@ struct ChorusRef {
     double hz, minMs, maxMs;
 };
 constexpr int kChorusModes = 3;   // I, II, I+II
-constexpr ChorusRef kChorusRef[kChorusModes] = {{0.5, 2.0, 5.0}, {0.8, 1.5, 5.5}, {9.75, 3.1, 3.9}};
+// I+II runs I and II at once: chorusDelay() reports I's pair, so its reference is I's.
+constexpr ChorusRef kChorusRef[kChorusModes] = {{0.5, 2.0, 5.0}, {0.8, 1.5, 5.5}, {0.5, 2.0, 5.0}};
 double corrLR(const Buf& a, const Buf& b, size_t from) {
     double ab = 0, aa = 0, bb = 0;
     for (size_t i = from; i < a.size() && i < b.size(); ++i) {
@@ -996,6 +997,23 @@ TEST(ju6_chorus_decorrelates_the_sides) {
         CHECK(c > 0.0);   // still one instrument, not two
         CHECK(rmsDiff(g.L, g.R) > 0.01 * rms(g.L));
     }
+}
+
+// I+II adds mode II's taps to I's: not the same sound as either, about the same level.
+TEST(ju6_chorus_both_is_i_and_ii_together) {
+    Buf out[kChorusModes];
+    for (int mode = 1; mode <= kChorusModes; ++mode) {
+        Rig g(chorusContext(mode));
+        g.on(0, 48.0f);
+        g.on(1, 55.0f);
+        g.run(2 * kBlocksPerSec);
+        out[mode - 1] = g.L;
+    }
+    CHECK(rmsDiff(out[2], out[0]) > 0.01 * rms(out[0]));
+    CHECK(rmsDiff(out[2], out[1]) > 0.01 * rms(out[1]));
+    const double db = 20.0 * std::log10(rms(out[2]) / rms(out[0]));
+    std::printf("  JU6 chorus I+II vs I: level %+.2f dB\n", db);
+    CHECK(std::fabs(db) < 1.5);
 }
 
 TEST(ju6_chorus_silence_in_silence_out) {
